@@ -44,7 +44,7 @@ def search_and_save(search):
         # Dont search as it has been searched recently
         logger.warning("Search for '%s' was performed in the past 24 hours so not searching again.",
         normalized_search_term)
-        return 
+        return # in order to make testing easier with celery
 
     omdb_client = get_client()
 

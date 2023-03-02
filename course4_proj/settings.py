@@ -1,7 +1,7 @@
 from pathlib import Path
 from configurations import Configuration
 from configurations import values
-
+import os
 class Dev(Configuration):
     INSTALLED_APPS = [
         'django.contrib.admin',
@@ -12,10 +12,11 @@ class Dev(Configuration):
         'django.contrib.staticfiles',
         "movies",
         "gh",
-        # "django_celery_results"
+        "django_celery_results"
     ]
-    # CELERY_RESULT_BACKEND = "django-db"
-    # CELERY_BROKER_URL = "redis://localhost:6379/0"
+    CELERY_RESULT_BACKEND = "django-db"
+    CELERY_BROKER_URL = "redis://localhost:6379/0"
+
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
     BASE_DIR = Path(__file__).resolve().parent.parent
     
@@ -29,7 +30,7 @@ class Dev(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ["*"]
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
@@ -51,14 +52,14 @@ class Dev(Configuration):
             "level": "DEBUG",
         },
     }
-    ALLOWED_HOSTS = values.ListValue(["localhost"])
-    # X_FRAME_OPTIONS = "ALLOW-FROM " + os.environ.get("CODIO_HOSTNAME") + "-8000.codio.io"
-    # CSRF_COOKIE_SAMESITE = None
-    # CSRF_TRUSTED_ORIGINS = [os.environ.get("CODIO_HOSTNAME") + "-8000.codio.io"]
-    # CSRF_COOKIE_SECURE = True
-    # SESSION_COOKIE_SECURE = True
-    # CSRF_COOKIE_SAMESITE = "None"
-    # SESSION_COOKIE_SAMESITE = "None"
+    ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io", "127.0.0.1"])
+    X_FRAME_OPTIONS = "ALLOW-FROM " + os.environ.get("CODIO_HOSTNAME") + "-8000.codio.io"
+    CSRF_COOKIE_SAMESITE = None
+    CSRF_TRUSTED_ORIGINS = [os.environ.get("CODIO_HOSTNAME") + "-8000.codio.io"]
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SAMESITE = "None"
+    SESSION_COOKIE_SAMESITE = "None"
 
     # Application definition
 
